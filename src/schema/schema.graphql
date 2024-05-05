@@ -1,0 +1,36 @@
+# src/schema/base/schema.graphql
+type Query {
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(user: UserInput!): CreateUserPayload
+}
+
+input UserInput {
+  name: String!
+}
+
+type CreateUserPayload {
+  user: User
+}
+
+interface User {
+  id: ID!
+  type: UserType!
+}
+
+enum UserType {
+  admin
+  customer
+}
+
+type AdminUser implements User {
+  id: ID!
+  adminName: String!
+}
+
+type CustomerUser implements User {
+  id: ID!
+  customerName: String!
+}
