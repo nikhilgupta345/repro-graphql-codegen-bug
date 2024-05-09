@@ -13,10 +13,8 @@
     "generate": "graphql-codegen"
   },
   "devDependencies": {
-    "@eddeee888/gcg-typescript-resolver-files": "^0.8.0",
+    "@eddeee888/gcg-typescript-resolver-files": "0.0.0-pr269-run477-1-20240508110032",
     "@graphql-codegen/cli": "^5.0.2",
-    "@graphql-codegen/typescript": "^4.0.6",
-    "@graphql-codegen/typescript-resolvers": "^4.0.6",
     "@parcel/watcher": "^2.4.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
