@@ -1,5 +1,4 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { AdminUserMapper, CustomerUserMapper } from './schema.mappers';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -7,7 +6,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -24,25 +22,10 @@ export type AdminUser = User & {
   id: Scalars['ID']['output'];
 };
 
-export type CreateUserPayload = {
-  __typename?: 'CreateUserPayload';
-  user?: Maybe<User>;
-};
-
 export type CustomerUser = User & {
   __typename?: 'CustomerUser';
   customerName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  createUser?: Maybe<CreateUserPayload>;
-};
-
-
-export type MutationcreateUserArgs = {
-  user: UserInput;
 };
 
 export type Query = {
@@ -57,16 +40,7 @@ export type QueryuserArgs = {
 
 export type User = {
   id: Scalars['ID']['output'];
-  type: UserType;
 };
-
-export type UserInput = {
-  name: Scalars['String']['input'];
-};
-
-export type UserType =
-  | 'admin'
-  | 'customer';
 
 
 
@@ -138,35 +112,28 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
-  User: ( AdminUserMapper ) | ( CustomerUserMapper );
+  User: ( AdminUser ) | ( CustomerUser );
 };
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  AdminUser: ResolverTypeWrapper<AdminUserMapper>;
+  AdminUser: ResolverTypeWrapper<AdminUser>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
-  CreateUserPayload: ResolverTypeWrapper<Omit<CreateUserPayload, 'user'> & { user?: Maybe<ResolversTypes['User']> }>;
-  CustomerUser: ResolverTypeWrapper<CustomerUserMapper>;
-  Mutation: ResolverTypeWrapper<{}>;
+  CustomerUser: ResolverTypeWrapper<CustomerUser>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['User']>;
-  UserInput: UserInput;
-  UserType: UserType;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  AdminUser: AdminUserMapper;
+  AdminUser: AdminUser;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
-  CreateUserPayload: Omit<CreateUserPayload, 'user'> & { user?: Maybe<ResolversParentTypes['User']> };
-  CustomerUser: CustomerUserMapper;
-  Mutation: {};
+  CustomerUser: CustomerUser;
   Query: {};
   User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
-  UserInput: UserInput;
   Boolean: Scalars['Boolean']['output'];
 };
 
@@ -176,19 +143,10 @@ export type AdminUserResolvers<ContextType = any, ParentType extends ResolversPa
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type CreateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserPayload'] = ResolversParentTypes['CreateUserPayload']> = {
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type CustomerUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerUser'] = ResolversParentTypes['CustomerUser']> = {
   customerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationcreateUserArgs, 'user'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -198,14 +156,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   __resolveType?: TypeResolveFn<'AdminUser' | 'CustomerUser', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['UserType'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   AdminUser?: AdminUserResolvers<ContextType>;
-  CreateUserPayload?: CreateUserPayloadResolvers<ContextType>;
   CustomerUser?: CustomerUserResolvers<ContextType>;
-  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

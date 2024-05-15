@@ -1,2 +1,1 @@
-export type AdminUserMapper = { id: string };
-export type CustomerUserMapper = { id: string };
+export type UserMapper = { id: string; isAdmin: boolean };
