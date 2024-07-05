@@ -5,6 +5,7 @@ generates:
     watchPattern: '**/*.mappers.ts'
     presetConfig:
       mode: 'merged'
+      mergeSchema: false
       resolverGeneration: all
       typesPluginsConfig:
         resolversNonOptionalTypename: false

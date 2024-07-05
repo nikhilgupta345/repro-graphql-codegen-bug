@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { UserMapper } from './schema.mappers';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -110,10 +111,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
-/** Mapping of interface types */
-export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
-  User: ( AdminUser ) | ( CustomerUser );
-};
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
@@ -122,7 +119,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   CustomerUser: ResolverTypeWrapper<CustomerUser>;
   Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['User']>;
+  User: ResolverTypeWrapper<UserMapper>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
@@ -133,7 +130,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   CustomerUser: CustomerUser;
   Query: {};
-  User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
+  User: UserMapper;
   Boolean: Scalars['Boolean']['output'];
 };
 
